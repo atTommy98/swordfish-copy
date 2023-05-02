@@ -1,24 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+
+import Sphere from "./components/Sphere";
+
+import { Canvas } from "react-three-fiber";
+import { CameraControls, DeviceOrientationControls } from "@react-three/drei";
+import { useState } from "react";
 
 function App() {
+  const [isCameraControls, setIsCameraControls] = useState(true);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <button onClick={() => setIsCameraControls(!isCameraControls)} style={{ position: "absolute", top: "30px", left: "15px", zIndex: 5 }}>{isCameraControls ? "Camera Controlled" : "Device Controlled"}</button>
+      <div className="canvas">
+        <Canvas
+          camera={{ fov: 90, near: 0.1, far: 1000, position: [0, 0, 0.1] }}
         >
-          Learn React
-        </a>
-      </header>
+          {isCameraControls ? (
+            <CameraControls />
+          ) : (
+            <DeviceOrientationControls />
+          )}
+          <Sphere />
+          <ambientLight intensity={0.5} />
+        </Canvas>
+      </div>
     </div>
   );
 }
