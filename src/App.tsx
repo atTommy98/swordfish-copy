@@ -1,17 +1,38 @@
 import "./App.css";
-
-import Sphere from "./components/Sphere";
-
-import { Canvas } from "react-three-fiber";
-import { CameraControls, DeviceOrientationControls } from "@react-three/drei";
 import { useState } from "react";
 
-function App() {
+// ThreeJS
+import { Canvas } from "react-three-fiber";
+import { CameraControls, DeviceOrientationControls } from "@react-three/drei";
+import Sphere from "./components/Sphere";
+
+// QR
+import { QrReader } from "react-qr-reader";
+
+// Navigation
+import { useNavigate } from "react-router-dom";
+
+function App({ videoSrc }: IVideoProps) {
   const [isCameraControls, setIsCameraControls] = useState(true);
+  const navigate = useNavigate();
 
   return (
     <div className="App">
-      <button onClick={() => setIsCameraControls(!isCameraControls)} style={{ position: "absolute", top: "30px", left: "15px", zIndex: 5 }}>{isCameraControls ? "Camera Controlled" : "Device Controlled"}</button>
+      <button
+        className="button"
+        onClick={() => setIsCameraControls(!isCameraControls)}
+      >
+        {isCameraControls ? "Camera Controlled" : "Device Controlled"}
+      </button>
+      <QrReader
+        className="qr-reader"
+        onResult={(res: any, err: any): void => {
+          if (res) {
+            navigate(`/${res.text}`, { replace: true });
+            console.log(res);
+          }
+        }}
+      />
       <div className="canvas">
         <Canvas
           camera={{ fov: 90, near: 0.1, far: 1000, position: [0, 0, 0.1] }}
@@ -19,9 +40,14 @@ function App() {
           {isCameraControls ? (
             <CameraControls />
           ) : (
-            <DeviceOrientationControls />
+            <DeviceOrientationControls
+              addEventListener={undefined}
+              removeEventListener={undefined}
+              hasEventListener={undefined}
+              dispatchEvent={undefined}
+            />
           )}
-          <Sphere />
+          <Sphere videoSrc={videoSrc} />
           <ambientLight intensity={0.5} />
         </Canvas>
       </div>
