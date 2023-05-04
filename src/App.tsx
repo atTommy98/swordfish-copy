@@ -11,10 +11,16 @@ import { QrReader } from "react-qr-reader";
 
 // Navigation
 import { useNavigate } from "react-router-dom";
+import ThreeCanvas from "./components/ThreeCanvas";
 
 function App({ videoSrc }: IVideoProps) {
   const [isCameraControls, setIsCameraControls] = useState(true);
+
   const navigate = useNavigate();
+
+  function handleScan(url: string) {
+    navigate(`/${url}`, { replace: true });
+  }
 
   return (
     <div className="App">
@@ -25,31 +31,16 @@ function App({ videoSrc }: IVideoProps) {
         {isCameraControls ? "Camera Controlled" : "Device Controlled"}
       </button>
       <QrReader
+        constraints={{ facingMode: 'environment', frameRate: 30 }}
         className="qr-reader"
         onResult={(res: any, err: any): void => {
           if (res) {
-            navigate(`/${res.text}`, { replace: true });
-            console.log(res);
+            handleScan(res.text);
           }
         }}
       />
       <div className="canvas">
-        <Canvas
-          camera={{ fov: 90, near: 0.1, far: 1000, position: [0, 0, 0.1] }}
-        >
-          {isCameraControls ? (
-            <CameraControls />
-          ) : (
-            <DeviceOrientationControls
-              addEventListener={undefined}
-              removeEventListener={undefined}
-              hasEventListener={undefined}
-              dispatchEvent={undefined}
-            />
-          )}
-          <Sphere videoSrc={videoSrc} />
-          <ambientLight intensity={0.5} />
-        </Canvas>
+        <ThreeCanvas isCameraControls={isCameraControls} videoSrc={videoSrc} />
       </div>
     </div>
   );
