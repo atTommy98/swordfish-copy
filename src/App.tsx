@@ -1,11 +1,6 @@
 import "./App.css";
 import { useState } from "react";
 
-// ThreeJS
-import { Canvas } from "react-three-fiber";
-import { CameraControls, DeviceOrientationControls } from "@react-three/drei";
-import Sphere from "./components/Sphere";
-
 // QR
 import { QrReader } from "react-qr-reader";
 
