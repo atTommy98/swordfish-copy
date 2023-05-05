@@ -6,6 +6,8 @@ import { QrReader } from "react-qr-reader";
 
 // Navigation
 import { useNavigate } from "react-router-dom";
+
+// Components
 import ThreeCanvas from "./components/ThreeCanvas";
 
 function App({ videoSrc }: IVideoProps) {
