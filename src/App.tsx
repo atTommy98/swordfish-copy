@@ -22,21 +22,21 @@ function App({ videoSrc }: IVideoProps) {
   return (
     <div className="App">
       <button
-        className="button"
+        className="app--button"
         onClick={() => setIsCameraControls(!isCameraControls)}
       >
         {isCameraControls ? "Camera Controlled" : "Device Controlled"}
       </button>
       <QrReader
         constraints={{ facingMode: 'environment', frameRate: 30 }}
-        className="qr-reader"
+        className="app--qr-reader"
         onResult={(res: any, err: any): void => {
           if (res) {
             handleScan(res.text);
           }
         }}
       />
-      <div className="canvas">
+      <div className="app--canvas">
         <ThreeCanvas isCameraControls={isCameraControls} videoSrc={videoSrc} />
       </div>
     </div>
