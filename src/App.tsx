@@ -1,44 +1,16 @@
-import "./App.css";
-import { useState } from "react";
-
-// QR
-import { QrReader } from "react-qr-reader";
-
-// Navigation
-import { useNavigate } from "react-router-dom";
+import "./index.css";
+import url from "./videos/mountain-pass.mp4";
 
 // Components
 import ThreeCanvas from "./components/ThreeCanvas";
+import Accelerometer from "./components/Accelerometer";
 
-function App({ videoSrc }: IVideoProps) {
-  const [isCameraControls, setIsCameraControls] = useState(true);
-
-  const navigate = useNavigate();
-
-  function handleScan(url: string) {
-    navigate(`/${url}`, { replace: true });
-  }
+function App() {
 
   return (
     <div className="App">
-      <button
-        className="app--button"
-        onClick={() => setIsCameraControls(!isCameraControls)}
-      >
-        {isCameraControls ? "Camera Controlled" : "Device Controlled"}
-      </button>
-      <QrReader
-        constraints={{ facingMode: 'environment', frameRate: 30 }}
-        className="app--qr-reader"
-        onResult={(res: any, err: any): void => {
-          if (res) {
-            handleScan(res.text);
-          }
-        }}
-      />
-      <div className="app--canvas">
-        <ThreeCanvas isCameraControls={isCameraControls} videoSrc={videoSrc} />
-      </div>
+      <ThreeCanvas url={url} />
+      <Accelerometer />
     </div>
   );
 }

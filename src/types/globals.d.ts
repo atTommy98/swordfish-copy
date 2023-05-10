@@ -1,0 +1,5 @@
+declare module "react-three-fiber"
+declare module "*.mp4"
+declare module "*.mkv"
+declare module "*.webm"
+declare module "react-hook-device-orientation"
