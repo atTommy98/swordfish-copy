@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-function Accelerometer() {
-  const [permissionGranted, setPermissionGranted] = useState(false);
+function Accelerometer({ permissionGranted, setPermissionGranted }) {
 
   useEffect(() => {
     if (typeof DeviceMotionEvent.requestPermission === "function") {
@@ -17,7 +16,7 @@ function Accelerometer() {
     }
 
     return () => {};
-  }, []);
+  });
 
   function handlePermissionGranted() {
     DeviceMotionEvent.requestPermission()
