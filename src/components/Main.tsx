@@ -8,7 +8,7 @@ import video3 from "../videos/timelapse-sphere.mp4";
 
 // Videos
 import videoModal1 from "../videos/aerial-2.mp4";
-import videoModal2 from "../videos/EVRENZOEDetailMoAv2 _UK.mp4";
+import videoModal2 from "../videos/EVRENZO EDetail MoA v2 _UK.mp4";
 import videoModal3 from "../videos/timelapse-video2-trimmed.mp4";
 
 // Modals
